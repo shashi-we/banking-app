@@ -1,0 +1,19 @@
+default: &default
+  adapter:  postgresql
+  host:     localhost
+  encoding: unicode
+  pool:     5
+  username: postgres
+  password: password
+
+development:
+  <<: *default
+  database: banking_dev
+
+test:
+  <<: *default
+  database: banking_test
+
+production:
+  <<: *default
+  database: banking_dev

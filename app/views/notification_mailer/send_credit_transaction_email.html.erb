@@ -1,0 +1,13 @@
+<p>Dear <%= @user.name %></p>
+
+<p>
+  Your A/c <%= @user.account_number %> is credited with  
+  <%= number_to_currency(@transaction.transaction_amount, unit: 'Rs ') %> on 
+  <%= @transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %>. 
+  Available Balance: <%= number_to_currency(@user.balance_amount, unit: 'Rs ') %>
+</p>
+
+<p>
+Happy banking, <br/>
+ABC Bank
+</p>
