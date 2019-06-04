@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   private 
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || dashboard_path
+    stored_location_for(resource) || resource.has_roles?(:admin) ? admin_dashboard_path : dashboard_path
   end  
 end

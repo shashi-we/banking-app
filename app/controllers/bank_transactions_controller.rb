@@ -1,4 +1,6 @@
 class BankTransactionsController < ApplicationController
+  access customer: [:new, :create]
+
   def new
     @bank_transaction = current_user.bank_transactions.build
     @bank_transaction.transaction_type = params[:transaction_type]

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  petergate(roles: [:admin, :customer], multiple: false)
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -8,13 +10,22 @@ class User < ApplicationRecord
 
   validates :name, presence: :true
 
-  after_create :create_bank_account, :send_welcome_email
+  before_create :set_role
+  after_create :create_bank_account, :send_welcome_email, if: :customer?
 
   delegate :account_number, to: :bank_account, allow_nil: false
   delegate :balance_amount, to: :bank_account, allow_nil: false
   delegate :bank_transactions, to: :bank_account
 
+  def customer?
+    self.has_roles?(:customer)
+  end
+
   private
+
+    def set_role
+      self.roles = 'customer' unless self.has_roles?(:admin)
+    end
 
     def create_bank_account
       self.bank_account = BankAccount.create!(

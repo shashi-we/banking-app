@@ -14,7 +14,7 @@ gem 'rubocop-rails'
 gem 'bootstrap',                      '~> 4.3.1'
 gem 'jquery-rails'
 gem 'devise'
-gem 'cancancan'
+gem 'petergate'
 gem 'letter_opener_web'
 
 group :development, :test do
