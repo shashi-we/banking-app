@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   delegate :account_number, to: :bank_account, allow_nil: false
   delegate :balance_amount, to: :bank_account, allow_nil: false
+  delegate :bank_transactions, to: :bank_account
 
   private
 

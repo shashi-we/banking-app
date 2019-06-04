@@ -1,0 +1,13 @@
+<div class="card bg-secondary text-white">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>Account Number: <%= current_user.account_number %></h4>
+      </div>
+      <div class="col-sm-6">
+        <h4>Balance: <%= number_to_currency(current_user.balance_amount, unit: 'Rs ') %></h4>
+      </div>
+    </div>
+  </div>
+</div>
+<hr/>

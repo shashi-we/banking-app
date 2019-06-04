@@ -1,0 +1,33 @@
+<%= render 'shared/account_basic_info' %>
+
+<% unless @transactions.empty? %>
+  <div class="card border-secondary text-secondary">
+    <h4 class="card-header">Transactions</h4>
+    <div class="card-body text-secondary">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Transaction Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th scope="col">CR/DR</th>
+              <th scope="col">Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @transactions.each do |transaction| %>
+              <tr>
+                <td><%= transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %></th>
+                <td><%= transaction.description %></td>
+                <td class="text-right"><%= number_to_currency(transaction.transaction_amount, unit: 'Rs ') %></td>
+                <td class="text-right"><%= transaction.transaction_type.capitalize %></td>
+                <td class="text-right"><%= number_to_currency(transaction.balance_amount, unit: 'Rs ') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>
