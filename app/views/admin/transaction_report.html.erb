@@ -1,0 +1,37 @@
+<%= link_to "Back", transaction_histories_path, class: "btn btn-primary btn-lg" %>
+
+<% unless @transactions.empty? %>
+  <div class="card border-secondary text-secondary">
+    <h4 class="card-header">Transaction Report</h4>
+    <div class="card-body text-secondary">
+      <div class="table-responsive-sm">
+        <table class="table table-hover table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Account Number</th>
+              <th scope="col">Name</th>
+              <th scope="col">CR/DR</th>
+              <th scope="col">Description</th>
+              <th scope="col" class="text-right">Amount</th>
+              <th scope="col" class="text-right">Balance</th>
+              <th scope="col" class="text-right">Transaction Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @transactions.each do |transaction| %>
+              <tr>
+                <td><%= transaction.bank_account.account_number %></td>
+                <td><%= transaction.bank_account.user.name %></td>
+                <td class="text-right"><%= transaction.transaction_type.capitalize %></td>
+                <td><%= transaction.description %></td>
+                <td class="text-right"><%= number_to_currency(transaction.transaction_amount, unit: 'Rs ') %></td>
+                <td class="text-right"><%= number_to_currency(transaction.balance_amount, unit: 'Rs ') %></td>
+                <td class="text-right"><%= transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %></th>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

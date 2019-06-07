@@ -13,4 +13,8 @@ module FormHelper
           concat errors_for(form, field)
       end
   end
+
+  def display_formats
+    [['On Sceen', 'html'], ['Excel', 'xls']]
+  end
 end

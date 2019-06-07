@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">Account Number</Data></Cell>
+        <Cell><Data ss:Type="String">Account Holder Name</Data></Cell>
+        <Cell><Data ss:Type="String">Transatcion Type</Data></Cell>
+        <Cell><Data ss:Type="String">Transaction Description</Data></Cell>
+        <Cell><Data ss:Type="String">Transaction Amount</Data></Cell>
+        <Cell><Data ss:Type="String">Balance</Data></Cell>
+        <Cell><Data ss:Type="String">Transaction Date</Data></Cell>
+      </Row>
+    <% @transactions.each do |transaction| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= transaction.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= transaction.bank_account.account_number %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= transaction.bank_account.user.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= transaction.transaction_type.capitalize %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= transaction.description %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= transaction.transaction_amount %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= transaction.balance_amount %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

@@ -1,0 +1,65 @@
+<%= form_tag('/admin/transaction-report', { method: :post, class: "generate-report-form" }) do %>
+  <div class="card  text-secondary">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <div class="form_group">
+            <%= label_tag :start_date %>
+            <%= date_field_tag :start_date, '', { class: "form-control", required: true, placeholder: "start date" } %>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form_group">
+            <%= label_tag :end_date %>
+            <%= date_field_tag :end_date, '', { class: "form-control", required: true, placeholder: "end date" } %>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form_group">
+            <%= label_tag :display_format %>
+            <%= select_tag :format, options_for_select(display_formats), class: "form-control" %>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form_group text-right">
+            <%= submit_tag "Generate Report", class: "btn btn-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <% unless @customers.empty? %>
+    <div class="card border-secondary text-secondary">
+      <h4 class="card-header">Customer</h4>
+      <div class="card-body text-secondary">
+        <div class="table-responsive-sm">
+          <table class="table table-hover table-bordered table-sm">
+            <thead class="thead-light">
+              <tr>
+                <th><input type="checkbox" /></th>
+                <th scope="col">Account number</th>
+                <th scope="col">Customer name</th>
+                <th scope="col">Email</th>
+                <th scope="col" class="text-right">Account created on</th>
+                <th scope="col" class="text-right">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @customers.each do |customer| %>
+                <tr>
+                  <td><%= check_box_tag 'account_ids[]', customer.bank_account.id %></td>
+                  <td><%= link_to customer.account_number, admin_customer_detail_path(customer) %></th>
+                  <td><%= customer.name %></td>
+                  <td><%= customer.email %></td>
+                  <td class="text-right"><%= customer.created_at.strftime("%d-%b-%Y %H:%M:%S") %></td>
+                  <td class="text-right"><%= number_to_currency(customer.balance_amount, unit: 'Rs ') %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
