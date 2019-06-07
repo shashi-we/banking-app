@@ -16,17 +16,22 @@
         <Cell><Data ss:Type="String">Balance</Data></Cell>
         <Cell><Data ss:Type="String">Transaction Date</Data></Cell>
       </Row>
-    <% @transactions.each do |transaction| %>
+    <% @account_transactions.each do |account, transactions| %>
       <Row>
-        <Cell><Data ss:Type="Number"><%= transaction.id %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= transaction.bank_account.account_number %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= transaction.bank_account.user.name %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= transaction.transaction_type.capitalize %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= transaction.description %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= transaction.transaction_amount %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= transaction.balance_amount %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= account %></Data></Cell>
       </Row>
+      <% transactions.each do |transaction| %>
+        <Row>
+          <Cell><Data ss:Type="Number"><%= transaction.id %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= transaction.bank_account.account_number %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= transaction.bank_account.user.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= transaction.transaction_type.capitalize %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= transaction.description %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= transaction.transaction_amount %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= transaction.balance_amount %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %></Data></Cell>
+        </Row>
+      <% end %>
     <% end %>
     </Table>
   </Worksheet>

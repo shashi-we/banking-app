@@ -1,6 +1,6 @@
 <%= link_to "Back", transaction_histories_path, class: "btn btn-primary btn-lg" %>
 
-<% unless @transactions.empty? %>
+<% unless @account_transactions.empty? %>
   <div class="card border-secondary text-secondary">
     <h4 class="card-header">Transaction Report</h4>
     <div class="card-body text-secondary">
@@ -18,16 +18,21 @@
             </tr>
           </thead>
           <tbody>
-            <% @transactions.each do |transaction| %>
+            <% @account_transactions.each do |account, transactions| %>
               <tr>
-                <td><%= transaction.bank_account.account_number %></td>
-                <td><%= transaction.bank_account.user.name %></td>
-                <td class="text-right"><%= transaction.transaction_type.capitalize %></td>
-                <td><%= transaction.description %></td>
-                <td class="text-right"><%= number_to_currency(transaction.transaction_amount, unit: 'Rs ') %></td>
-                <td class="text-right"><%= number_to_currency(transaction.balance_amount, unit: 'Rs ') %></td>
-                <td class="text-right"><%= transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %></th>
+                <td colspan="7" class="text-primary"><%= account %></td>
               </tr>
+              <% transactions.each do |transaction| %>
+                <tr>
+                  <td><%= transaction.bank_account.account_number %></td>
+                  <td><%= transaction.bank_account.user.name %></td>
+                  <td class="text-right"><%= transaction.transaction_type.capitalize %></td>
+                  <td><%= transaction.description %></td>
+                  <td class="text-right"><%= number_to_currency(transaction.transaction_amount, unit: 'Rs ') %></td>
+                  <td class="text-right"><%= number_to_currency(transaction.balance_amount, unit: 'Rs ') %></td>
+                  <td class="text-right"><%= transaction.transaction_time.strftime("%d-%m-%Y %H:%M:%S") %></th>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>
